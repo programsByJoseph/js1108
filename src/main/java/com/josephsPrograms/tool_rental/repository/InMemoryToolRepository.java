@@ -3,9 +3,12 @@ package com.josephsPrograms.tool_rental.repository;
 import com.josephsPrograms.tool_rental.model.Ladder;
 import com.josephsPrograms.tool_rental.model.*;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class InMemoryToolRepository {
     private final List<Tool> tools = new ArrayList<>();
 
