@@ -19,3 +19,11 @@ This file records prompts from the user and responses from the AI assistant for 
 - Assistant: Acknowledged — I will not add a helper script. I will continue appending every user prompt and assistant response to `AI_INTERACTION_LOG.md` automatically as you requested. This entry records your preference.
 
 ---
+
+## Entry: 2025-11-08 (tests)
+
+- User: Create a test file for each of the following classes: Chainsaw, Jackhammer, Ladder
+
+- Assistant: I created JUnit 5 test classes `ChainsawTest`, `JackhammerTest`, and `LadderTest` under `src/test/java/com/josephsPrograms/tool_rental/model/`. Each tests the constructor-set fields and boolean flags. I will now run `mvnw test` to compile and execute the tests and report results.
+
+---
