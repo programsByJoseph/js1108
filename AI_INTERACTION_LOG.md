@@ -27,3 +27,11 @@ This file records prompts from the user and responses from the AI assistant for 
 - Assistant: I created JUnit 5 test classes `ChainsawTest`, `JackhammerTest`, and `LadderTest` under `src/test/java/com/josephsPrograms/tool_rental/model/`. Each tests the constructor-set fields and boolean flags. I will now run `mvnw test` to compile and execute the tests and report results.
 
 ---
+
+## Entry: 2025-11-08 (repo test)
+
+- User: Add a test file for this class
+
+- Assistant: I created `InMemoryToolRepositoryTest.java` under `src/test/java/com/josephsPrograms/tool_rental/repository/`. The test verifies that `getTools()` returns 4 tools in the expected order and that each tool's type, code, brand, and daily charge match the repository's initial data.
+
+---
