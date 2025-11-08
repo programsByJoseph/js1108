@@ -19,5 +19,12 @@ public class LadderTest {
         assertTrue(ladder.hasWeekendCharge());
         assertFalse(ladder.hasHolidayCharge());
     }
+
+    @Test
+    public void convertsDate() {
+        Ladder ladder = new Ladder("LAD1", "Werner");
+
+        ladder.calculateCharge(1, 0, "07/02/25");
+    }
 }
 

@@ -14,4 +14,9 @@ public class Jackhammer extends Tool {
                 false
         );
     }
+
+    @Override
+    public BigDecimal calculateCharge(int rentalDayCount, int discountPercentage, String checkoutDate) {
+        return null;
+    }
 }

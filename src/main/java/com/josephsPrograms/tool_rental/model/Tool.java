@@ -52,4 +52,6 @@ public abstract class Tool {
     public boolean hasHolidayCharge() {
         return this.holidayCharge;
     }
+
+    public abstract BigDecimal calculateCharge(int rentalDayCount, int discountPercentage, String checkoutDate);
 }

@@ -14,4 +14,9 @@ public class Chainsaw extends Tool {
                 true
         );
     }
+
+    @Override
+    public BigDecimal calculateCharge(int rentalDayCount, int discountPercentage, String checkoutDate) {
+        return null;
+    }
 }

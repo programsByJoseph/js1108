@@ -81,3 +81,76 @@ This file records prompts from the user and responses from the AI assistant for 
 - Assistant: I created `ToolServiceTest.java` under `src/test/java/com/josephsPrograms/tool_rental/Service/`. The test verifies that the constructor works and that `getRentalAgreement` returns an empty string for sample input, matching the current implementation.
 
 ---
+
+## Entry: 2025-11-08 (date check logic)
+
+- User: What is a way I could check an incoming string representing a date as "mm/dd/yy" is the first monday of the month of september?
+
+- Assistant: To check if an incoming string in "MM/dd/yy" format is the first Monday of September for its year, you can:
+
+1. Parse the string to a Date (or LocalDate).
+2. Extract the month and year.
+3. Find the first Monday of September for that year.
+4. Compare the parsed date to the first Monday.
+
+Example using Java's java.time API:
+```java
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.DayOfWeek;
+
+public static boolean isFirstMondayOfSeptember(String dateStr) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+    LocalDate date = LocalDate.parse(dateStr, formatter);
+    if (date.getMonthValue() != 9) return false;
+    LocalDate firstOfSeptember = LocalDate.of(date.getYear(), 9, 1);
+    int dayShift = (DayOfWeek.MONDAY.getValue() - firstOfSeptember.getDayOfWeek().getValue() + 7) % 7;
+    LocalDate firstMonday = firstOfSeptember.plusDays(dayShift);
+    return date.equals(firstMonday);
+}
+```
+This function returns true if the input string is the first Monday of September for its year, otherwise false.
+
+---
+
+## Entry: 2025-11-08 (logging request)
+
+- User: Add this interaction, and all future ineractions, to AI_INTERACTION_LOD.md
+
+- Assistant: Acknowledged. I have appended this interaction to AI_INTERACTION_LOG.md and will continue to append all future interactions automatically.
+
+---
+
+## Entry: 2025-11-08 (HolidayUtil test)
+
+- User: Make a test class for this class
+
+- Assistant: I created `HolidayUtilTest.java` under `src/test/java/com/josephsPrograms/tool_rental/utils/`. The test covers the `isIndependenceDay` method for correct and incorrect date strings, including valid "07/04/yy", other dates, malformed input, and year boundaries. The current method always returns false, so all tests expect false.
+
+---
+
+## Entry: 2025-11-08 (first Monday check)
+
+- User: How can I check if a day is the first monday of a month?
+
+- Assistant: To check if a given date string is the first Monday of a month, parse the string to a date, check if the day of week is Monday, and if the day of month is between 1 and 7. I added `isFirstMondayOfMonth(String dateStr)` to your HolidayUtil class:
+
+```java
+public boolean isFirstMondayOfMonth(String dateStr) {
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+    try {
+        Date date = sdf.parse(dateStr);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        // Calendar.DAY_OF_WEEK: 2 = Monday
+        return dayOfWeek == Calendar.MONDAY && dayOfMonth <= 7;
+    } catch (ParseException e) {
+        return false;
+    }
+}
+```
+This method returns true if the input string is the first Monday of its month, otherwise false.
+
+---
