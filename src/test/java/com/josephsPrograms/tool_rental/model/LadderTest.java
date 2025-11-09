@@ -21,10 +21,31 @@ public class LadderTest {
     }
 
     @Test
-    public void convertsDate() {
-        Ladder ladder = new Ladder("LAD1", "Werner");
+    public void calculateCharge_noHolidays() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        int expectedChargeableDays = 5;
+        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/07/25"));
+    }
 
-        ladder.calculateCharge(1, 0, "07/02/25");
+    @Test
+    public void calculateCharge_holidayOnWeekday() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        int expectedChargeableDays = 4;
+        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/01/25"));
+    }
+
+    @Test
+    public void calculateCharge_holidayOnSaturday() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        int expectedChargeableDays = 4;
+        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/01/20"));
+    }
+
+    @Test
+    public void calculateCharge_holidayOnSunday() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        int expectedChargeableDays = 4;
+        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/04/21"));
     }
 }
 
