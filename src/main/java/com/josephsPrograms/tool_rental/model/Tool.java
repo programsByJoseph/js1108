@@ -35,18 +35,25 @@ public abstract class Tool {
         return this.dailyCharge;
     }
 
+    // Pre-discount charge - Calculated as charge days X daily charge. The resulting total rounded half
+    // up to cents.
     public BigDecimal calculatePreDiscountCharge(int rentalDayCount, String checkoutDate) {
         BigDecimal chargeableDays = new BigDecimal(this.calculateChargeableDays(rentalDayCount, checkoutDate));
-        return this.dailyCharge.multiply(chargeableDays);
+        return this.dailyCharge.multiply(chargeableDays).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal calculateDiscountAmount(BigDecimal preDiscountCharge, int discountPercentage) {
+    // Discount amount - calculated from discount % and pre-discount charge.  The resulting amount
+    // rounded half up to cents.
+    public BigDecimal calculateDiscountAmount(int rentalDayCount, String checkoutDate, int discountPercentage) {
         BigDecimal discountPercentageAsDecimal = new BigDecimal(discountPercentage).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        BigDecimal preDiscountCharge = this.calculatePreDiscountCharge(rentalDayCount, checkoutDate);
         return preDiscountCharge.multiply(discountPercentageAsDecimal).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal finalCharge(BigDecimal preDiscountCharge,  BigDecimal discountAmount) {
-        return preDiscountCharge.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
+    // Final charge - Calculated as pre-discount charge - discount amount.
+    public BigDecimal finalCharge(int rentalDayCount, String checkoutDate, int discountPercentage) {
+        BigDecimal discountAmount = this.calculateDiscountAmount(rentalDayCount, checkoutDate,discountPercentage);
+        return this.calculatePreDiscountCharge(rentalDayCount, checkoutDate).subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
     }
 
     public abstract int calculateChargeableDays(int rentalDays, String checkoutDate);

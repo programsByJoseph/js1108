@@ -38,7 +38,12 @@ public class Chainsaw extends Tool {
             e.printStackTrace();
             throw new RuntimeException("Invalid date format");
         }
-        int chargeableDaysExludingFirstDay = chargeableDays - 1;
-        return chargeableDaysExludingFirstDay < 0 ? 0 : chargeableDaysExludingFirstDay;
+
+        // Exclude the checkout day based on interpretation of requirement description:
+        // "Charge days - Count of chargeable days, from day after checkout through and including due date..."
+        // Therefore, we subtract 1 from the total chargeable days calculated to not include the day of checkout
+        // because "from day after checkout..."
+        int chargeableDaysExcludingFirstDay = chargeableDays - 1;
+        return chargeableDaysExcludingFirstDay < 0 ? 0 : chargeableDaysExcludingFirstDay;
     }
 }

@@ -42,6 +42,8 @@ public class LadderTest {
         assertEquals(expectedChargeableDays, ladder.calculateChargeableDays(1, "07/01/27"));
     }
 
+
+    // Exercise validation tests
     @Test
     public void calculateChargeableDays_exerciseValidation() {
         Ladder ladder = new Ladder("LADW", "Werner");
@@ -49,89 +51,24 @@ public class LadderTest {
         assertEquals(expectedChargeableDays, ladder.calculateChargeableDays(3, "07/02/20"));
     }
 
-//    @Test
-//    public void calculatePreDiscountCharge_noHolidays() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 5;
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/07/25"));
-//    }
-//
-//    // Covers rental period with a weekday holiday (Independence Day on Friday)
-//    @Test
-//    public void calculatePreDiscountCharge_holidayOnWeekday() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 4;
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/01/25"));
-//    }
-//
-//    @Test
-//    public void calculatePreDiscountCharge_holidayOnSaturday() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 4;
-//
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/01/20"));
-//    }
-//
-//    @Test
-//    public void calculatePreDiscountCharge_holidayOnSunday() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 4;
-//
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(5, "07/04/21"));
-//    }
-//
-//    @Test
-//    public void calculatePreDiscountCharge_holidayIsOnlyDay() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 0;
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(1, "07/04/21"));
-//    }
-//
-//    @Test
-//    public void calculatePreDiscountCharge_laborDay() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 6;
-//
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(7, "08/31/25"));
-//    }
-//
-//    @Test
-//    public void calculateCharge_calculatePreDiscountLaborDayOnlyDay() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        int expectedChargeableDays = 0;
-//
-//        assertEquals(expectedChargeableDays,  ladder.calculateChargeableDays(1, "09/01/25"));
-//    }
-//
-//    @Test
-//    void calculateDiscountAmount_calculatesDiscountAmountCorrectly() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        BigDecimal preDiscountCharge = new BigDecimal(100);
-//        BigDecimal expectedDiscountAmount = new BigDecimal(20.00).setScale(2);
-//        assertEquals(expectedDiscountAmount, ladder.calculateDiscountAmount(preDiscountCharge, 20));
-//    }
-//
-//    @Test
-//    void calculateDiscountAmount_calculates0DiscountCorrectly() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        BigDecimal preDiscountCharge = new BigDecimal(100);
-//        BigDecimal expectedDiscountAmount = new BigDecimal(0).setScale(2);
-//        assertEquals(expectedDiscountAmount, ladder.calculateDiscountAmount(preDiscountCharge, 0));
-//    }
-//
-//    @Test
-//    void calculateDiscountAmount_calculates100DiscountCorrectly() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        BigDecimal preDiscountCharge = new BigDecimal(100);
-//        BigDecimal expectedDiscountAmount = new BigDecimal(100).setScale(2);
-//        assertEquals(expectedDiscountAmount, ladder.calculateDiscountAmount(preDiscountCharge, 100));
-//    }
-//
-//    @Test
-//    void finalCharge() {
-//        Ladder ladder = new Ladder("LADW", "Werner");
-//        BigDecimal preDiscountCharge = new BigDecimal(100);
-//        BigDecimal expectedDiscountAmount = new BigDecimal(100).setScale(2);
-//        assertEquals(expectedDiscountAmount, ladder.calculateDiscountAmount(preDiscountCharge, 100));
-//    }
+    @Test
+    public void calculatePreDiscountCharge_exerciseValidation() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        BigDecimal result = ladder.calculatePreDiscountCharge(3, "07/02/20");
+        assertEquals(new BigDecimal("1.99"), result);
+    }
+
+    @Test
+    public void calculateDiscountAmount_exerciseValidation() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        BigDecimal result = ladder.calculateDiscountAmount(3, "07/02/20", 10);
+        assertEquals(new BigDecimal("0.20"), result);
+    }
+
+    @Test
+    public void finalCharge_exerciseValidation() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        BigDecimal result = ladder.finalCharge(3, "07/02/20", 10);
+        assertEquals(new BigDecimal("1.79"), result);
+    }
 }
