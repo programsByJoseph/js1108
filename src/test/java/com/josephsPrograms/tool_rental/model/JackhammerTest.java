@@ -63,6 +63,95 @@ public class JackhammerTest {
         assertEquals(0, chargeable);
     }
 
+    // EXCEPTION HANDLING TESTS
+    @Test
+    void calculatePreDiscountCharge_throwsExceptionForInvalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculatePreDiscountCharge(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateDiscountAmount(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountNegative() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateDiscountAmount(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountOver100() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateDiscountAmount(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.finalCharge(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountNegative() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.finalCharge(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountOver100() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.finalCharge(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void calculateChargeableDays_invalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateChargeableDays(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 
     // EXERCISE VALIDATION TESTS
 

@@ -42,6 +42,95 @@ public class LadderTest {
         assertEquals(expectedChargeableDays, ladder.calculateChargeableDays(1, "07/01/27"));
     }
 
+    //Exception handling tests
+    @Test
+    void calculatePreDiscountCharge_throwsExceptionForInvalidRentalDays() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.calculatePreDiscountCharge(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidRentalDays() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.calculateDiscountAmount(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountNegative() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.calculateDiscountAmount(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountOver100() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.calculateDiscountAmount(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidRentalDays() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.finalCharge(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountNegative() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.finalCharge(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountOver100() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.finalCharge(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void calculateChargeableDays_invalidRentalDays() {
+        Ladder ladder = new Ladder("LADW", "Werner");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ladder.calculateChargeableDays(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 
     // Exercise validation tests
     @Test

@@ -36,6 +36,95 @@ public class ChainsawTest {
         assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(1, "07/01/25"));
     }
 
+    // EXCEPTION HANDLING TESTS
+    @Test
+    void calculatePreDiscountCharge_throwsExceptionForInvalidRentalDays() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.calculatePreDiscountCharge(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidRentalDays() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.calculateDiscountAmount(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountNegative() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.calculateDiscountAmount(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountOver100() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.calculateDiscountAmount(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidRentalDays() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.finalCharge(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountNegative() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.finalCharge(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountOver100() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.finalCharge(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void calculateChargeableDays_invalidRentalDays() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            chainsaw.calculateChargeableDays(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
     //Exercise validation tests
     @Test
     public void calculateChargeableDays_exerciseValidation() {

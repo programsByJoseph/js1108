@@ -20,6 +20,10 @@ public class Chainsaw extends Tool {
 
     @Override
     public int calculateChargeableDays(int rentalDays, String checkoutDate) {
+        if(rentalDays < 1) {
+            throw new IllegalArgumentException("Rental day count must be at least 1. Provided count: " + rentalDays);
+        }
+
         DateUtil dateUtil = new DateUtil();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         int chargeableDays = 0;

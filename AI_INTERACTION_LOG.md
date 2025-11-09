@@ -273,3 +273,63 @@ All tests pass static error checks.
 - Assistant: I added a test for rental period with weekdays and weekends but no holidays, clarified comments for existing tests, and verified that all required scenarios are covered in LadderTest.java. No code was removed. Some tests have assertion warnings or BigDecimal rounding warnings unrelated to the new tests. All changes have been appended to AI_INTERACTION_LOG.md.
 
 ---
+
+## Entry: 2025-11-09 (logging request)
+
+- User: Append AI_INTERACTION_LOG.md with all of our interactions going forward.  Do not remove any of its contents when you append it.
+
+- Assistant: Acknowledged. I will continue to append all future interactions to AI_INTERACTION_LOG.md without removing any of its contents.
+
+---
+
+## Entry: 2025-11-09 (logging request)
+
+- User: append AI_INTERACTION_LOG.md with that last interaction and all interactions going forward.  Do not remove any of its contents when you append our interactions to the file
+
+- Assistant: Acknowledged. I have appended your last interaction and will continue to append all future interactions to AI_INTERACTION_LOG.md without removing any of its contents.
+
+---
+
+## Entry: 2025-11-09 (ToolService rentalDayCount exception)
+
+- User: Add code to ToolService.getRentalAgreement to throw an exception if the rentalDayCount is less than 1.
+
+- Assistant: I added code to ToolService.getRentalAgreement to throw IllegalArgumentException if rentalDayCount is less than 1. No other code was removed. Static error checks show unused parameters and variables, but the exception logic is correct. All future interactions will continue to be appended to AI_INTERACTION_LOG.md without removing any contents.
+
+---
+
+## Entry: 2025-11-09 (RentalResponse getters/setters)
+
+- User: Add getters and setters for each field in this class
+
+- Assistant: I added getters and setters for all fields in RentalResponse. No errors affect functionality; warnings are only about unused methods and class. Task complete. All future interactions will continue to be logged in AI_INTERACTION_LOG.md without removing any pre-existing contents.
+
+---
+
+## Entry: 2025-11-09 (BigDecimal to USD String)
+
+- User: What is the best way to convert a BigDecimal to a string representing USD currency?  Ex: 1.99 converts to "$1.99"
+
+- Assistant: The best way to convert a BigDecimal to a string representing USD currency (e.g., 1.99 to "$1.99") in Java is to use the NumberFormat class:
+
+```java
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+BigDecimal value = new BigDecimal("1.99");
+NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
+String formatted = usdFormat.format(value); // "$1.99"
+```
+
+This approach handles proper rounding, thousands separators, and the currency symbol for USD.
+
+---
+
+## Entry: 2025-11-09 (ToolServiceTest exception handling)
+
+- User: Add a test in ToolServiceTest.java to test the exception handling in getRentalAgreement.  Do not remove any code already in the class.  Append this interaction to AI_INTERACTION_LOG.md
+
+- Assistant: I added a test to ToolServiceTest.java to verify exception handling for invalid tool code in getRentalAgreement. No code was removed. Static error checks show only a lambda style warning, which does not affect correctness. This interaction has been appended to AI_INTERACTION_LOG.md and all future interactions will continue to be logged without replacing any file contents.
+
+---
