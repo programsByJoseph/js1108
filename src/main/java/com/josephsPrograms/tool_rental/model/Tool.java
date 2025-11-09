@@ -1,6 +1,7 @@
 package com.josephsPrograms.tool_rental.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public abstract class Tool {
 
@@ -8,28 +9,21 @@ public abstract class Tool {
     protected String toolType;
     protected String brand;
     protected BigDecimal dailyCharge;
-    protected boolean weekdayCharge;
-    protected boolean weekendCharge;
-    protected boolean holidayCharge;
 
     public Tool(String toolCode, String toolType, String brand,
-                BigDecimal dailyCharge, boolean weekdayCharge,
-                boolean weekendCharge, boolean holidayCharge
+                BigDecimal dailyCharge
     ) {
         this.toolCode = toolCode;
         this.toolType = toolType;
         this.brand = brand;
         this.dailyCharge = dailyCharge;
-        this.weekdayCharge = weekdayCharge;
-        this.weekendCharge = weekendCharge;
-        this.holidayCharge = holidayCharge;
     }
 
     public boolean isType(String type) {
         return this.toolType.equalsIgnoreCase(type);
     }
 
-    public boolean isCode(String code){
+    public boolean isCode(String code) {
         return this.toolCode.equalsIgnoreCase(code);
     }
 
@@ -41,17 +35,19 @@ public abstract class Tool {
         return this.dailyCharge;
     }
 
-    public boolean hasWeekdayCharge() {
-        return this.weekdayCharge;
+    public BigDecimal calculatePreDiscountCharge(int rentalDayCount, String checkoutDate) {
+        BigDecimal chargeableDays = new BigDecimal(this.calculateChargeableDays(rentalDayCount, checkoutDate));
+        return this.dailyCharge.multiply(chargeableDays);
     }
 
-    public boolean hasWeekendCharge() {
-        return this.weekendCharge;
+    public BigDecimal calculateDiscountAmount(BigDecimal preDiscountCharge, int discountPercentage) {
+        BigDecimal discountPercentageAsDecimal = new BigDecimal(discountPercentage).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        return preDiscountCharge.multiply(discountPercentageAsDecimal).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public boolean hasHolidayCharge() {
-        return this.holidayCharge;
+    public BigDecimal finalCharge(BigDecimal preDiscountCharge,  BigDecimal discountAmount) {
+        return preDiscountCharge.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public abstract BigDecimal calculatePreDiscountCharge(int rentalDayCount, int discountPercentage, String checkoutDate);
+    public abstract int calculateChargeableDays(int rentalDays, String checkoutDate);
 }

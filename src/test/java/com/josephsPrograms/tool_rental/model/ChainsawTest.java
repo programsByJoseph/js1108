@@ -1,23 +1,44 @@
 package com.josephsPrograms.tool_rental.model;
 
 import org.junit.jupiter.api.Test;
-import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ChainsawTest {
 
     @Test
-    public void chainsawConstructor_setsFieldsCorrectly() {
+    public void calculateChargeableDays_noHoliday() {
         Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        int expectedChargeableDays = 4;
+        assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(5, "11/10/25"));
+    }
 
-        assertTrue(chainsaw.isCode("CHNS"));
-        assertTrue(chainsaw.isBrand("Stihl"));
-        assertTrue(chainsaw.isType("Chainsaw"));
-        assertEquals(0, chainsaw.getDailyCharge().compareTo(BigDecimal.valueOf(1.49)));
-        assertTrue(chainsaw.hasWeekdayCharge());
-        assertFalse(chainsaw.hasWeekendCharge());
-        assertTrue(chainsaw.hasHolidayCharge());
+    @Test
+    public void calculateChargeableDays_weekdayHolidayLaborDay() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        int expectedChargeableDays = 4;
+        assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(5, "09/01/25"));
+    }
+
+    @Test
+    public void calculateChargeableDays_weekdayHolidayJuly() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        int expectedChargeableDays = 3;
+        assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(5, "07/01/25"));
+    }
+
+    @Test
+    public void calculateChargeableDays_oneDayRentalShouldNoCharge() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        int expectedChargeableDays = 0;
+        assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(1, "07/01/25"));
+    }
+
+    @Test
+    public void calculateChargeableDays_exerciseValidation() {
+        Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
+        int expectedChargeableDays = 2;
+        assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(5, "07/02/15"));
     }
 }
 

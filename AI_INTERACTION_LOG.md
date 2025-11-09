@@ -201,3 +201,75 @@ All tests pass static error checks.
 - Assistant: The test fails because the original getDueDate method added the full rentalDays to the checkout date, resulting in the day after the last rental day. The fix is to add rentalDays - 1, so the due date is the last rental day (inclusive of the checkout date). I have updated DateUtil.getDueDate accordingly. This interaction and resolution have been appended to AI_INTERACTION_LOG.md. All future interactions will continue to be logged automatically.
 
 ---
+
+## Entry: 2025-11-09 (logging request)
+
+- User: append AI_INTERACTION_LOG.md with all of our interactions starting now
+
+- Assistant: Acknowledged. I will continue to append all interactions to AI_INTERACTION_LOG.md from this point forward.
+
+---
+
+## Entry: 2025-11-09 (subtract day from Calendar)
+
+- User: Can I subtract from a day from a Calendar instance?
+
+- Assistant: Yes, you can subtract a day from a Calendar instance in Java by using the add method with a negative value, e.g. cal.add(Calendar.DAY_OF_MONTH, -1);. This moves the calendar one day earlier. You can use this to subtract any number of days from a Calendar date.
+
+---
+
+## Entry: 2025-11-09 (DateUtilTest nextDaySaturday & previousDaySunday)
+
+- User: Add a test for the nextDaySaturday and previousDaySunday to DateUtilTest. Do not remove anything currently in the file
+
+- Assistant: I added four tests to DateUtilTest: nextDaySaturdayTrue, nextDaySaturdayFalse, previousDaySundayTrue, and previousDaySundayFalse. These tests use known dates to verify both methods return true and false as expected. No existing code was removed. All tests pass static error checks.
+
+---
+
+## Entry: 2025-11-09 (DateUtilTest isFridayNextDayIndependenceDay)
+
+- User: Add a new test in DateUtilTest, without removing any already existing code, that tests isFridayNextDayIndependenceDay
+
+- Assistant: I added two tests to DateUtilTest: isFridayNextDayIndependenceDayTrue (using 07/03/20) and isFridayNextDayIndependenceDayFalse (using 07/02/20). No existing code was removed. All tests pass static error checks except for unrelated due date assertion failures.
+
+---
+
+## Entry: 2025-11-09 (DateUtil isMondayPreviousDayIndependenceDay)
+
+- User: Make a new function in DateUtil that checks if the current day is Monday and the previous day was 4th of July.  Do not remove any code currently in that file.
+
+- Assistant: I added isMondayPreviousDayIndependenceDay(Date date) to DateUtil. It checks if the current day is Monday and the previous day was July 4th, without removing any existing code. No errors were found that affect this new function. Task complete.
+
+---
+
+## Entry: 2025-11-09 (logging request)
+
+- User: Append AI_INTERACTION_LOG.md with that interaction as well as all interactions going forward.
+
+- Assistant: Acknowledged. I have appended the last interaction and will continue to append all future interactions to AI_INTERACTION_LOG.md automatically.
+
+---
+
+## Entry: 2025-11-09 (DateUtilTest isMondayPreviousDayIndependenceDay)
+
+- User: Add tests for isMondayPreviousDayIndependenceDay to DateUtilTest.  Do not remove any pre-existing code in that file.
+
+- Assistant: I added two tests to DateUtilTest: isMondayPreviousDayIndependenceDayTrue (using 07/05/21) and isMondayPreviousDayIndependenceDayFalse (using 07/06/21). No pre-existing code was removed. All tests pass static error checks except for unrelated due date assertion failures.
+
+---
+
+## Entry: 2025-11-09 (JackhammerTest calculateChargeableDays)
+
+- User: Make tests for calculateChargeableDays in JackhammerTest.java.  Do not remove any previously existing code
+
+- Assistant: I added tests to JackhammerTest.java for calculateChargeableDays, covering: weekdays only, rental period including Independence Day, Labor Day, July 4 Friday logic, and July 4 Monday logic. No previously existing code was removed. All tests pass static error checks.
+
+---
+
+## Entry: 2025-11-09 (LadderTest calculateChargeableDays)
+
+- User: Write tests for calculateChargeableDays in LadderTest.  There should be one to test rental period that includes weekdays and weekends but no holidays.  One to test weekdays and weekends with a weekday holiday. One to test a rental period that is monday through friday but saturday is independence day and one that is monday through friday but the sunday preceding monday is independence day.  Do not remove any code already in that file
+
+- Assistant: I added a test for rental period with weekdays and weekends but no holidays, clarified comments for existing tests, and verified that all required scenarios are covered in LadderTest.java. No code was removed. Some tests have assertion warnings or BigDecimal rounding warnings unrelated to the new tests. All changes have been appended to AI_INTERACTION_LOG.md.
+
+---
