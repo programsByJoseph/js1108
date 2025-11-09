@@ -193,3 +193,11 @@ This loop will iterate from the starting date for rentalDayCount days, increment
 All tests pass static error checks.
 
 ---
+
+## Entry: 2025-11-08 (due date calculation bug)
+
+- User: Why is dueDateCalculatesMonthChangeCorrectly failing?
+
+- Assistant: The test fails because the original getDueDate method added the full rentalDays to the checkout date, resulting in the day after the last rental day. The fix is to add rentalDays - 1, so the due date is the last rental day (inclusive of the checkout date). I have updated DateUtil.getDueDate accordingly. This interaction and resolution have been appended to AI_INTERACTION_LOG.md. All future interactions will continue to be logged automatically.
+
+---

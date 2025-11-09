@@ -3,6 +3,7 @@ package com.josephsPrograms.tool_rental.model;
 import com.josephsPrograms.tool_rental.utils.DateUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,8 +23,18 @@ public class Ladder extends Tool {
     }
 
     @Override
-    public BigDecimal calculateCharge(int rentalDayCount, int discountPercentage, String checkoutDate) {
-        return this.dailyCharge.multiply(new BigDecimal(rentalDayCount));
+    public BigDecimal calculatePreDiscountCharge(int rentalDayCount, int discountPercentage, String checkoutDate) {
+        BigDecimal chargeableDays = new BigDecimal(this.calculateChargeableDays(rentalDayCount, checkoutDate));
+        return this.dailyCharge.multiply(chargeableDays);
+    }
+
+    public BigDecimal calculateDiscountAmount(BigDecimal preDiscountCharge, int discountPercentage) {
+        BigDecimal discountPercentageAsDecimal = new BigDecimal(discountPercentage).divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        return preDiscountCharge.multiply(discountPercentageAsDecimal).setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal finalCharge(BigDecimal preDiscountCharge,  BigDecimal discountAmount) {
+        return preDiscountCharge.subtract(discountAmount).setScale(2, RoundingMode.HALF_UP);
     }
 
     public int calculateChargeableDays(int rentalDays, String checkoutDate) {
@@ -36,7 +47,8 @@ public class Ladder extends Tool {
             cal.setTime(startDate);
             for (int i = 0; i < rentalDays; ++i) {
                 boolean dayIsIndependenceDay = dateUtil.isIndependenceDay(cal.getTime());
-                if(!dayIsIndependenceDay) {
+                boolean dayIsLaborDay = dateUtil.isLaborDay(cal.getTime());
+                if(!dayIsIndependenceDay && !dayIsLaborDay) {
                     chargeableDays += 1;
                 }
                 cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -46,6 +58,11 @@ public class Ladder extends Tool {
             throw new RuntimeException("Invalid date format");
         }
         return chargeableDays;
+    }
+
+    public String getDueDate(int rentalDays, String checkoutDate) {
+        DateUtil dateUtil = new DateUtil();
+        return dateUtil.getDueDate(rentalDays, checkoutDate);
     }
 }
 

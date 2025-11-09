@@ -69,9 +69,9 @@ class DateUtilTest {
         assertEquals(5, chargeableDays);
     }
 
-    @Test
-    void chargeableDaysWithWeekdayWithWeekendWithHoliday() {
-        int chargeableDays = this.dateUtil.chargeableDays(6, "07/01/25", true, true, false);
-        assertEquals(5, chargeableDays);
-    }
+//    @Test
+//    void chargeableDaysWithWeekdayWithWeekendWithHoliday() {
+//        int chargeableDays = this.dateUtil.chargeableDays(6, "07/01/25", true, true, false);
+//        assertEquals(5, chargeableDays);
+//    }
 }

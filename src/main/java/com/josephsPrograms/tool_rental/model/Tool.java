@@ -53,5 +53,5 @@ public abstract class Tool {
         return this.holidayCharge;
     }
 
-    public abstract BigDecimal calculateCharge(int rentalDayCount, int discountPercentage, String checkoutDate);
+    public abstract BigDecimal calculatePreDiscountCharge(int rentalDayCount, int discountPercentage, String checkoutDate);
 }
