@@ -30,13 +30,6 @@ public class DateUtil {
         return dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY;
     }
 
-    public boolean dayIsWeekend(Date currentDay) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(currentDay);
-        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
-    }
-
     public boolean isIndependenceDay(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -52,22 +45,6 @@ public class DateUtil {
         int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
         int month = cal.get(Calendar.MONTH) + 1;
         return month == 9 && dayOfWeek == Calendar.MONDAY && dayOfMonth <= 7;
-    }
-
-    public boolean nextDaySaturday(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DAY_OF_MONTH, 1);
-        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek == Calendar.SATURDAY;
-    }
-
-    public boolean previousDaySunday(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-        return dayOfWeek == Calendar.SUNDAY;
     }
 
     public boolean isFridayNextDayIndependenceDay(Date date) {

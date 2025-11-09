@@ -11,78 +11,64 @@ class DateUtilTest {
     private final DateUtil dateUtil = new DateUtil();
 
     @Test
-    void isIndependenceDayTrue() {
-//        assertTrue(this.dateUtil.isIndependenceDay("07/04/25"));
+    void dayIsWeekday_true() {
+        Date date = new Date("11/06/25");
+        assertTrue(this.dateUtil.dayIsWeekday(date));
     }
 
     @Test
-    void isIndependenceDayFalse() {
-//        assertFalse(this.dateUtil.isIndependenceDay("07/05/25"));
-    }
-
-//    @Test
-//    void dueDateCalculatesCorrectly() {
-//        String dueDate = this.dateUtil.getDueDate(3, "07/04/25");
-//        assertEquals("07/06/25", dueDate);
-//    }
-//
-//    @Test
-//    void dueDateCalculatesMonthChangeCorrectly() {
-//        String dueDate = this.dateUtil.getDueDate(3, "07/30/25");
-//        assertEquals("08/01/25", dueDate);
-//    }
-
-    @Test
-    void nextDaySaturdayTrue() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
-        Date friday = sdf.parse("07/03/20"); // July 3, 2020 is a Friday, next day is Saturday
-        assertTrue(dateUtil.nextDaySaturday(friday));
+    void dayIsWeekday_false() {
+        Date date = new Date("11/08/25");
+        assertFalse(this.dateUtil.dayIsWeekday(date));
     }
 
     @Test
-    void nextDaySaturdayFalse() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
-        Date thursday = sdf.parse("07/02/20"); // July 2, 2020 is a Thursday, next day is Friday
-        assertFalse(dateUtil.nextDaySaturday(thursday));
+    void isIndependenceDay_true() {
+        Date date = new Date("07/04/25");
+        assertTrue(this.dateUtil.isIndependenceDay(date));
     }
 
     @Test
-    void previousDaySundayTrue() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
-        Date monday = sdf.parse("07/06/20"); // July 6, 2020 is a Monday, previous day is Sunday
-        assertTrue(dateUtil.previousDaySunday(monday));
+    void isIndependenceDay_false() {
+        Date date = new Date("07/05/25");
+        assertFalse(this.dateUtil.isIndependenceDay(date));
     }
 
     @Test
-    void previousDaySundayFalse() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
-        Date tuesday = sdf.parse("07/07/20"); // July 7, 2020 is a Tuesday, previous day is Monday
-        assertFalse(dateUtil.previousDaySunday(tuesday));
+    void isLaborDay_true() throws Exception {
+        Date date = new Date("09/01/2025");
+        assertTrue(this.dateUtil.isLaborDay(date));
     }
 
     @Test
-    void isFridayNextDayIndependenceDayTrue() throws Exception {
+    void isLaborDay_false() throws Exception {
+        Date date = new Date("09/08/2025");
+        assertFalse(this.dateUtil.isLaborDay(date));
+    }
+
+    @Test
+    void isFridayNextDayIndependenceDay_true() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         Date friday = sdf.parse("07/03/26");
         assertTrue(dateUtil.isFridayNextDayIndependenceDay(friday));
     }
 
     @Test
-    void isFridayNextDayIndependenceDayFalse() throws Exception {
+    void isFridayNextDayIndependenceDay_false() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         Date friday = sdf.parse("07/04/25");
         assertFalse(dateUtil.isFridayNextDayIndependenceDay(friday));
     }
 
     @Test
-    void isMondayPreviousDayIndependenceDayTrue() throws Exception {
+    void isMondayPreviousDayIndependenceDay_true() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         Date monday = sdf.parse("07/05/21"); // July 5, 2021 is a Monday, previous day is July 4
         assertTrue(dateUtil.isMondayPreviousDayIndependenceDay(monday));
     }
 
     @Test
-    void isMondayPreviousDayIndependenceDayFalse() throws Exception {
+    void isMondayPreviousDayIndependenceDay_false() throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         Date tuesday = sdf.parse("07/06/21"); // July 6, 2021 is a Tuesday, previous day is July 5
         assertFalse(dateUtil.isMondayPreviousDayIndependenceDay(tuesday));
