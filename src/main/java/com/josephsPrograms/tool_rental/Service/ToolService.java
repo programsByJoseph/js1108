@@ -40,9 +40,12 @@ public class ToolService {
         String discountAmount;
         String finalCharge;
         String chargeableDays;
+        String formattedCheckoutDate;
 
         NumberFormat usdFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        DateUtil dateUtil = new DateUtil();
         try {
+            formattedCheckoutDate = dateUtil.formatCheckoutDate(checkoutDate);
             dailyRentalCharge = usdFormat.format(selectedTool.getDailyCharge());
             preDiscountCharge = usdFormat.format(selectedTool.calculatePreDiscountCharge(rentalDayCount, checkoutDate));
             discountAmount = usdFormat.format(selectedTool.calculateDiscountAmount(rentalDayCount, checkoutDate, discountPercentage));
@@ -54,13 +57,12 @@ public class ToolService {
             return error;
         }
 
-        DateUtil dateUtil = new DateUtil();
         RentalResponse rentalResponse = new RentalResponse();
         rentalResponse.setToolCode(toolCode);
         rentalResponse.setToolType(selectedTool.getToolType());
         rentalResponse.setToolBrand(selectedTool.getToolBrand());
         rentalResponse.setRentalDays(String.valueOf(rentalDayCount));
-        rentalResponse.setCheckoutDate(checkoutDate);
+        rentalResponse.setCheckoutDate(formattedCheckoutDate);
         rentalResponse.setDueDate(dateUtil.getDueDate(rentalDayCount, new Date(checkoutDate)));
         rentalResponse.setDailyRentalCharge(dailyRentalCharge);
         rentalResponse.setChargeDays(chargeableDays);

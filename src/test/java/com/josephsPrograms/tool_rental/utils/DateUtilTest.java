@@ -11,6 +11,21 @@ class DateUtilTest {
     private final DateUtil dateUtil = new DateUtil();
 
     @Test
+    void formatCheckoutDate_validDate() {
+        String inputDate = "5/5/25";
+        String formattedDate = this.dateUtil.formatCheckoutDate(inputDate);
+        assertEquals("05/05/25", formattedDate);
+    }
+
+    @Test
+    void formatCheckoutDate_invalidDate() {
+        String inputDate = "/5/5/25";
+        assertThrows(RuntimeException.class, () -> {
+            this.dateUtil.formatCheckoutDate(inputDate);
+        });
+    }
+
+    @Test
     void getDueDate_oneDayRental() {
         Date date = new Date("11/06/25");
         assertEquals("11/07/25", this.dateUtil.getDueDate(1, date));

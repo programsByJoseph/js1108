@@ -333,3 +333,27 @@ This approach handles proper rounding, thousands separators, and the currency sy
 - Assistant: I added a test to ToolServiceTest.java to verify exception handling for invalid tool code in getRentalAgreement. No code was removed. Static error checks show only a lambda style warning, which does not affect correctness. This interaction has been appended to AI_INTERACTION_LOG.md and all future interactions will continue to be logged without replacing any file contents.
 
 ---
+
+## Entry: 2025-11-09 (ToolServiceTest valid response)
+
+- User: Add a test in ToolService.java to test a valid response from the service with the input toolCode = JAKR, checkoutDate = 9/3/15 , rentalCount = 6,  discountPercentage = 0.  Do not change any of the existing code in the class.  Append AI_INTERACTION_LOG.md with this interaction
+
+- Assistant: I added a test to ToolServiceTest.java to verify a valid response from getRentalAgreement with toolCode=JAKR, checkoutDate=09/03/15, rentalCount=6, discountPercentage=0. No code was changed or removed. Static error checks show only a lambda style warning, which does not affect correctness. This interaction has been appended to AI_INTERACTION_LOG.md and all future interactions will continue to be logged without replacing any file contents.
+
+---
+
+## Entry: 2025-11-09 (days between Calendar)
+
+- User: Is there a way to get the number of days between two calendar days?  Append this interaction to AI_INTERACTION_LOG.md
+
+- Assistant: Yes, you can get the number of days between two Calendar instances in Java by converting them to milliseconds and dividing by the number of milliseconds in a day. For example:
+
+```java
+long millis1 = cal1.getTimeInMillis();
+long millis2 = cal2.getTimeInMillis();
+long diffDays = (millis2 - millis1) / (24 * 60 * 60 * 1000);
+```
+
+This gives you the difference in days between cal1 and cal2. If you want an absolute value, use Math.abs(diffDays).
+
+---

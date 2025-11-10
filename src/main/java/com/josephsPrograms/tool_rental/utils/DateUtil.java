@@ -9,8 +9,8 @@ public class DateUtil {
 
     //Based on interpretation of requirement description:
     //"Due date - Calculated from checkout date and rental days."
-    //Assuming rental days means the number of days the tool is rented for including the day it is rented.
-    //Ex: If a tool is checked out on 7/2 for 1 day, the due date is 7/2.
+    //One day should span two dates. For example, if a tool is checked out on 7/2 for 1 day
+    //it is due back on 7/3.
     public String getDueDate(int rentalDays, Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -18,6 +18,16 @@ public class DateUtil {
         Date dueDate = cal.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         return sdf.format(dueDate);
+    }
+
+    public String formatCheckoutDate(String checkoutDate) throws IllegalArgumentException {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
+        try {
+            Date date = sdf.parse(checkoutDate);
+            return sdf.format(date);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid date format: \n" + e.getMessage());
+        }
     }
 
     public boolean dayIsWeekday(Date currentDay) {

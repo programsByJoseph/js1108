@@ -31,6 +31,7 @@ public class Chainsaw extends Tool {
             Date startDate = sdf.parse(checkoutDate);
             Calendar cal = Calendar.getInstance();
             cal.setTime(startDate);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
             for (int i = 0; i < rentalDays; ++i) {
                 boolean isWeekday = dateUtil.dayIsWeekday(cal.getTime());
                 if(isWeekday) {
@@ -47,7 +48,6 @@ public class Chainsaw extends Tool {
         // "Charge days - Count of chargeable days, from day after checkout through and including due date..."
         // Therefore, we subtract 1 from the total chargeable days calculated to not include the day of checkout
         // because "from day after checkout..."
-        int chargeableDaysExcludingFirstDay = chargeableDays - 1;
-        return chargeableDaysExcludingFirstDay < 0 ? 0 : chargeableDaysExcludingFirstDay;
+        return chargeableDays;
     }
 }

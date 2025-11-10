@@ -30,9 +30,9 @@ public class ChainsawTest {
     }
 
     @Test
-    public void calculateChargeableDays_oneDayRentalShouldNoCharge() {
+    public void calculateChargeableDays_oneDayRental() {
         Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
-        int expectedChargeableDays = 0;
+        int expectedChargeableDays = 1;
         assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(1, "07/01/25"));
     }
 
@@ -129,7 +129,7 @@ public class ChainsawTest {
     @Test
     public void calculateChargeableDays_exerciseValidation() {
         Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
-        int expectedChargeableDays = 2;
+        int expectedChargeableDays = 3;
         assertEquals(expectedChargeableDays,  chainsaw.calculateChargeableDays(5, "07/02/15"));
     }
 
@@ -137,21 +137,21 @@ public class ChainsawTest {
     public void calculatePreDiscountCharge_exerciseValidation() {
         Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
         BigDecimal preDiscountCharge = chainsaw.calculatePreDiscountCharge(5, "07/02/15");
-        assertEquals(new BigDecimal("2.98"),  preDiscountCharge);
+        assertEquals(new BigDecimal("4.47"),  preDiscountCharge);
     }
 
     @Test
     public void calculateDiscountAmount_exerciseValidation() {
         Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
         BigDecimal discountAmount = chainsaw.calculateDiscountAmount(5, "07/02/15", 25);
-        assertEquals(new BigDecimal("0.75"),  discountAmount);
+        assertEquals(new BigDecimal("1.12"),  discountAmount);
     }
 
     @Test
     public void finalCharge_exerciseValidation() {
         Chainsaw chainsaw = new Chainsaw("CHNS", "Stihl");
         BigDecimal finalCharge = chainsaw.finalCharge(5, "07/02/15", 25);
-        assertEquals(new BigDecimal("2.23"),  finalCharge);
+        assertEquals(new BigDecimal("3.35"),  finalCharge);
     }
 }
 

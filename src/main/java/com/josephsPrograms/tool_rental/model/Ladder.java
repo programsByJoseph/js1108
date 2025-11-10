@@ -27,21 +27,17 @@ public class Ladder extends Tool {
         DateUtil dateUtil = new DateUtil();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         int chargeableDays = 0;
-        boolean independenceDayUsed = false;
         try {
             Date startDate = sdf.parse(checkoutDate);
             Calendar cal = Calendar.getInstance();
             cal.setTime(startDate);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
             for (int i = 0; i < rentalDays; ++i) {
-                boolean isIndependenceDay = dateUtil.isIndependenceDay(cal.getTime());
                 boolean isLaborDay = dateUtil.isLaborDay(cal.getTime());
-                boolean isHoliday = isIndependenceDay || isLaborDay;
                 boolean isFridayNextDayIndependenceDay = dateUtil.isFridayNextDayIndependenceDay(cal.getTime());
                 boolean isMondayPreviousDayIndependenceDay = dateUtil.isMondayPreviousDayIndependenceDay(cal.getTime());
-                if((!isHoliday && !isFridayNextDayIndependenceDay && !isMondayPreviousDayIndependenceDay) || independenceDayUsed) {
+                if(!isLaborDay && !isFridayNextDayIndependenceDay && !isMondayPreviousDayIndependenceDay) {
                     chargeableDays += 1;
-                } else {
-                    independenceDayUsed = true;
                 }
                 cal.add(Calendar.DAY_OF_MONTH, 1);
             }
@@ -52,10 +48,11 @@ public class Ladder extends Tool {
 
         // Exclude the checkout day based on interpretation of requirement description:
         // "Charge days - Count of chargeable days, from day after checkout through and including due date..."
-        // Therefore, we subtract 1 from the total chargeable days calculated to not include the day of checkout
+        // Therefore, subtract 1 from the total chargeable days calculated to not include the day of checkout
         // because "from day after checkout..."
-        int chargeableDaysExcludingFirstDay = chargeableDays - 1;
-        return chargeableDaysExcludingFirstDay < 0 ? 0 : chargeableDaysExcludingFirstDay;
+//        int chargeableDaysExcludingFirstDay = chargeableDays - 1;
+//        return chargeableDaysExcludingFirstDay < 0 ? 0 : chargeableDaysExcludingFirstDay;
+        return chargeableDays;
     }
 }
 
