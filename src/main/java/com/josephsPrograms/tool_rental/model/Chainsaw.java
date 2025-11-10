@@ -20,6 +20,10 @@ public class Chainsaw extends Tool {
 
     @Override
     public int calculateChargeableDays(int rentalDays, String checkoutDate) {
+        if(rentalDays < 1) {
+            throw new IllegalArgumentException("Rental day count must be at least 1. Provided count: " + rentalDays);
+        }
+
         DateUtil dateUtil = new DateUtil();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         int chargeableDays = 0;
@@ -27,6 +31,7 @@ public class Chainsaw extends Tool {
             Date startDate = sdf.parse(checkoutDate);
             Calendar cal = Calendar.getInstance();
             cal.setTime(startDate);
+            cal.add(Calendar.DAY_OF_MONTH, 1);
             for (int i = 0; i < rentalDays; ++i) {
                 boolean isWeekday = dateUtil.dayIsWeekday(cal.getTime());
                 if(isWeekday) {
@@ -38,7 +43,11 @@ public class Chainsaw extends Tool {
             e.printStackTrace();
             throw new RuntimeException("Invalid date format");
         }
-        int chargeableDaysExludingFirstDay = chargeableDays - 1;
-        return chargeableDaysExludingFirstDay < 0 ? 0 : chargeableDaysExludingFirstDay;
+
+        // Exclude the checkout day based on interpretation of requirement description:
+        // "Charge days - Count of chargeable days, from day after checkout through and including due date..."
+        // Therefore, we subtract 1 from the total chargeable days calculated to not include the day of checkout
+        // because "from day after checkout..."
+        return chargeableDays;
     }
 }

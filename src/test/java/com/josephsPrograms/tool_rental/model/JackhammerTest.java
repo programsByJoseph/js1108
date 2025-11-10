@@ -25,7 +25,7 @@ public class JackhammerTest {
     public void calculateChargeableDays_includesLaborDay() {
         Jackhammer jack = new Jackhammer("JAKR", "Ridgid");
         int chargeable = jack.calculateChargeableDays(5, "09/01/25");
-        assertEquals(3, chargeable);
+        assertEquals(4, chargeable);
     }
 
     @Test
@@ -39,48 +39,207 @@ public class JackhammerTest {
     public void calculateChargeableDays_july4MondayLogic() {
         Jackhammer jack = new Jackhammer("JAKR", "Bosch");
         int chargeable = jack.calculateChargeableDays(5, "07/01/27");
-        assertEquals(1, chargeable);
+        assertEquals(2, chargeable);
     }
 
     @Test
     public void calculateChargeableDays_july4OnSaturdayRentalIncludesSaturday() {
         Jackhammer jack = new Jackhammer("JAKR", "Bosch");
         int chargeable = jack.calculateChargeableDays(6, "07/01/27");
-        assertEquals(2, chargeable);
+        assertEquals(3, chargeable);
     }
 
     @Test
     public void calculateChargeableDays_july4OnSundayRentalIncludesSunday() {
         Jackhammer jack = new Jackhammer("JAKR", "Bosch");
         int chargeable = jack.calculateChargeableDays(5, "07/01/27");
-        assertEquals(1, chargeable);
+        assertEquals(2, chargeable);
     }
 
     @Test
     public void calculateChargeableDays_oneDayRentalShouldNoCharge() {
         Jackhammer jack = new Jackhammer("JAKR", "Bosch");
         int chargeable = jack.calculateChargeableDays(1, "07/01/27");
-        assertEquals(0, chargeable);
+        assertEquals(1, chargeable);
+    }
+
+    // EXCEPTION HANDLING TESTS
+    @Test
+    void calculatePreDiscountCharge_throwsExceptionForInvalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculatePreDiscountCharge(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
-    public void calculateChargeableDays_exerciseValidationTest1() {
+    void calculateDiscountAmount_throwsExceptionForInvalidRentalDays() {
         Jackhammer jack = new Jackhammer("JAKR", "Bosch");
-        int chargeable = jack.calculateChargeableDays(5, "09/03/15");
-        assertEquals(1, chargeable);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateDiscountAmount(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountNegative() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateDiscountAmount(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void calculateDiscountAmount_throwsExceptionForInvalidDiscountAmountOver100() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateDiscountAmount(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.finalCharge(0, "07/01/27", 10);
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountNegative() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.finalCharge(1, "07/01/27", -1);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: -1";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void finalCharge_throwsExceptionForInvalidDiscountAmountOver100() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.finalCharge(1, "07/01/27", 101);
+        });
+        String expectedMessage = "Discount percentage must be between 0 and 100. Provided percentage: 101";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    public void calculateChargeableDays_invalidRentalDays() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            jack.calculateChargeableDays(0, "07/01/27");
+        });
+        String expectedMessage = "Rental day count must be at least 1. Provided count: 0";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+
+    // EXERCISE VALIDATION TESTS
+
 
     @Test
     public void calculateChargeableDays_exerciseValidationTest4() {
         Jackhammer jack = new Jackhammer("JAKD", "Bosch");
         int chargeable = jack.calculateChargeableDays(6, "09/03/15");
-        assertEquals(2, chargeable);
+        assertEquals(3, chargeable);
     }
 
     @Test
-    public void calculateChargeableDays_exerciseValidationTest5() {
+    public void calculatePreDiscountCharge_exerciseValidationTest4() {
         Jackhammer jack = new Jackhammer("JAKD", "Bosch");
+        BigDecimal preDiscountCharge = jack.calculatePreDiscountCharge(6, "09/03/15");
+        assertEquals(new BigDecimal("8.97"), preDiscountCharge);
+    }
+
+    @Test
+    public void calculateDiscountAmount_correctlyCalculatesTest4() {
+        Jackhammer jack = new Jackhammer("JAKD", "Bosch");
+        BigDecimal discountAmount = jack.calculateDiscountAmount(6, "09/03/15", 0);
+        assertEquals(new BigDecimal("0.00"), discountAmount);
+    }
+
+    @Test
+    public void calculateFinalCharge_correctlyCalculatesTest4() {
+        //BigDecimal finalCharge(int rentalDayCount, String checkoutDate, int discountPercentage)
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal finalCharge = jack.finalCharge(6, "09/03/15", 0);
+        assertEquals(new BigDecimal("8.97"), finalCharge);
+    }
+
+
+    @Test
+    public void calculateChargeableDays_exerciseValidationTest5() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
         int chargeable = jack.calculateChargeableDays(9, "07/02/15");
         assertEquals(5, chargeable);
+    }
+
+    @Test
+    public void calculatePreDiscountCharge_exerciseValidationTest5() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal preDiscountCharge = jack.calculatePreDiscountCharge(9, "07/02/15");
+        assertEquals(new BigDecimal("14.95"), preDiscountCharge);
+    }
+
+    @Test
+    public void calculateDiscountAmount_exerciseValidationTest5() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal discountAmount = jack.calculateDiscountAmount(9, "07/02/15", 0);
+        assertEquals(new BigDecimal("0.00"), discountAmount);
+    }
+
+    @Test
+    public void calculateFinalCharge_correctlyCalculatesTest5() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal finalCharge = jack.finalCharge(9, "07/02/15", 0);
+        assertEquals(new BigDecimal("14.95"), finalCharge);
+    }
+
+
+    @Test
+    public void calculateChargeableDays_exerciseValidationTest6() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        int chargeable = jack.calculateChargeableDays(4, "07/02/20");
+        assertEquals(1, chargeable);
+    }
+
+    @Test
+    public void calculatePreDiscountCharge_exerciseValidationTest6() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal preDiscountCharge = jack.calculatePreDiscountCharge(4, "07/02/20");
+        assertEquals(new BigDecimal("2.99"), preDiscountCharge);
+    }
+
+    @Test
+    public void calculateDiscountAmount_exerciseValidationTest6() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal discountAmount = jack.calculateDiscountAmount(4, "07/02/20", 50);
+        assertEquals(new BigDecimal("1.50"), discountAmount);
+    }
+
+    @Test
+    public void calculateFinalCharge_correctlyCalculatesTest6() {
+        Jackhammer jack = new Jackhammer("JAKR", "Bosch");
+        BigDecimal finalCharge = jack.finalCharge(4, "07/02/20", 50);
+        assertEquals(new BigDecimal("1.49"), finalCharge);
     }
 }
