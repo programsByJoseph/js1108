@@ -18,18 +18,13 @@ public class ToolRentalController {
         this.toolService = toolService;
     }
 
-    @GetMapping("/rent/{toolCode}/{rentalDayCount}/{discountPercentage}/{checkoutDate}")
-    public String createRental(
-        @PathVariable String toolCode,
-        @PathVariable int rentalDayCount,
-        @PathVariable int discountPercentage,
-        @PathVariable String checkoutDate
-    ) {
+    @PostMapping("/rent")
+    public String createRental(@RequestBody RentalRequest request) {
         return this.toolService.getRentalAgreement(
-            toolCode,
-            rentalDayCount,
-            discountPercentage,
-            checkoutDate
+            request.getToolCode(),
+            request.getRentalDayCount(),
+            request.getDiscountPercentage(),
+            request.getCheckoutDate()
         );
     }
 }

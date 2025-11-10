@@ -429,3 +429,12 @@ This command assumes your Spring Boot server is running on localhost:8080. Adjus
 - Assistant: I updated ToolRentalController so the checkoutDate path variable now accepts a date in mm-dd-yy format and converts it to mm/dd/yy before passing to the service. Static error checks show only unused import/class/field/method warnings, which do not affect functionality. All future interactions will continue to be appended to AI_INTERACTION_LOG.md without removing any pre-existing contents.
 
 ---
+
+## Entry: 2025-11-10 (ToolRentalController POST /rent with RentalRequest)
+
+- User: Change the /rent endpoint to be postmapping with a request body of type RentalRequest
+
+- Assistant: I updated ToolRentalController so the /rent endpoint uses @PostMapping and accepts a request body of type RentalRequest, passing its fields to toolService.getRentalAgreement. Static error checks show only unused class/field/method warnings, which do not affect functionality. All future interactions will continue to be appended to AI_INTERACTION_LOG.md without removing any of its contents.
+
+---
+
