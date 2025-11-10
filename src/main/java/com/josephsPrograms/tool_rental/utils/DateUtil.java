@@ -21,9 +21,10 @@ public class DateUtil {
     }
 
     public String formatCheckoutDate(String checkoutDate) throws IllegalArgumentException {
+        String modifiedDate = checkoutDate.replace("-", "/");
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
         try {
-            Date date = sdf.parse(checkoutDate);
+            Date date = sdf.parse(modifiedDate);
             return sdf.format(date);
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid date format: \n" + e.getMessage());

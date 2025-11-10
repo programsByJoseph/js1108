@@ -42,6 +42,9 @@ public class ToolServiceTest {
 
     @Test
     public void getRentalAgreement_validInputReturnsAgreementValidationTest1() {
+        System.out.println("\n\n\n");
+        System.out.println("EXERCISE TEST 1 OUTPUT");
+        System.out.println("\n");
         InMemoryToolRepository repo = new InMemoryToolRepository();
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("JAKR", 5, 101, "9/3/15");
@@ -51,6 +54,9 @@ public class ToolServiceTest {
 
     @Test
     public void getRentalAgreement_validInputReturnsAgreementValidationTest2() {
+        System.out.println("\n\n\n");
+        System.out.println("EXERCISE TEST 2 OUTPUT");
+        System.out.println("\n");
         InMemoryToolRepository repo = new InMemoryToolRepository();
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("LADW", 3, 10, "7/2/20");
@@ -77,7 +83,6 @@ public class ToolServiceTest {
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("LADW", 5, 10, "7/2/20");
         assertNotNull(result);
-        System.out.println(result);
         assertTrue(result.startsWith("Rental Agreement:"));
         assertTrue(result.contains("Tool Code: LADW"));
         assertTrue(result.contains("Tool Type: Ladder"));
@@ -95,13 +100,14 @@ public class ToolServiceTest {
 
     @Test
     public void getRentalAgreement_validInputReturnsAgreementValidationTest3() {
+        System.out.println("\n\n\n");
+        System.out.println("EXERCISE TEST 3 OUTPUT");
+        System.out.println("\n");
         InMemoryToolRepository repo = new InMemoryToolRepository();
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("CHNS", 5, 25, "7/2/15");
         assertNotNull(result);
         System.out.println(result);
-        //Charge days - Count of chargeable days, from day after checkout through and including due
-        //date, excluding “no charge” days as specified by the tool type.
         assertTrue(result.startsWith("Rental Agreement:"));
         assertTrue(result.contains("Tool Code: CHNS"));
         assertTrue(result.contains("Tool Type: Chainsaw"));
@@ -119,6 +125,9 @@ public class ToolServiceTest {
 
     @Test
     public void getRentalAgreement_validInputReturnsAgreementValidationTest4() {
+        System.out.println("\n\n\n");
+        System.out.println("EXERCISE TEST 4 OUTPUT");
+        System.out.println("\n");
         InMemoryToolRepository repo = new InMemoryToolRepository();
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("JAKD", 6, 0, "9/3/15");
@@ -141,6 +150,9 @@ public class ToolServiceTest {
 
     @Test
     public void getRentalAgreement_validInputReturnsAgreementValidationTest5() {
+        System.out.println("\n\n\n");
+        System.out.println("EXERCISE TEST 5 OUTPUT");
+        System.out.println("\n");
         InMemoryToolRepository repo = new InMemoryToolRepository();
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("JAKR", 9, 0, "7/2/15");
@@ -163,6 +175,9 @@ public class ToolServiceTest {
 
     @Test
     public void getRentalAgreement_validInputReturnsAgreementValidationTest6() {
+        System.out.println("\n\n\n");
+        System.out.println("EXERCISE TEST 6 OUTPUT");
+        System.out.println("\n");
         InMemoryToolRepository repo = new InMemoryToolRepository();
         ToolService service = new ToolService(repo);
         String result = service.getRentalAgreement("JAKR", 4, 50, "7/2/20");

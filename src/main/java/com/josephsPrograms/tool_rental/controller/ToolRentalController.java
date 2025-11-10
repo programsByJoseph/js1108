@@ -18,23 +18,18 @@ public class ToolRentalController {
         this.toolService = toolService;
     }
 
-    @PostMapping("/rent")
-    public String createRental(@RequestBody RentalRequest request) {
-
-        return "";
+    @GetMapping("/rent/{toolCode}/{rentalDayCount}/{discountPercentage}/{checkoutDate}")
+    public String createRental(
+        @PathVariable String toolCode,
+        @PathVariable int rentalDayCount,
+        @PathVariable int discountPercentage,
+        @PathVariable String checkoutDate
+    ) {
+        return this.toolService.getRentalAgreement(
+            toolCode,
+            rentalDayCount,
+            discountPercentage,
+            checkoutDate
+        );
     }
-
-//    try {
-//        Object agreement = this.toolService.getRentalAgreement(
-//                request.getToolCode(),
-//                request.getRentalDayCount(),
-//                request.getDiscountPercentage(),
-//                checkoutDate
-//        );
-//        return ResponseEntity.ok(agreement);
-//    } catch (UnsupportedOperationException ex) {
-//        return ResponseEntity.status(501).body("Rental creation not implemented in ToolService: " + ex.getMessage());
-//    } catch (Exception ex) {
-//        return ResponseEntity.badRequest().body(ex.getMessage());
-//    }
 }

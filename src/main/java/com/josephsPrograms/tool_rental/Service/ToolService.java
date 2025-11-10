@@ -47,10 +47,10 @@ public class ToolService {
         try {
             formattedCheckoutDate = dateUtil.formatCheckoutDate(checkoutDate);
             dailyRentalCharge = usdFormat.format(selectedTool.getDailyCharge());
-            preDiscountCharge = usdFormat.format(selectedTool.calculatePreDiscountCharge(rentalDayCount, checkoutDate));
-            discountAmount = usdFormat.format(selectedTool.calculateDiscountAmount(rentalDayCount, checkoutDate, discountPercentage));
-            finalCharge = usdFormat.format(selectedTool.finalCharge(rentalDayCount, checkoutDate, discountPercentage));
-            chargeableDays = String.valueOf(selectedTool.calculateChargeableDays(rentalDayCount, checkoutDate));
+            preDiscountCharge = usdFormat.format(selectedTool.calculatePreDiscountCharge(rentalDayCount, formattedCheckoutDate));
+            discountAmount = usdFormat.format(selectedTool.calculateDiscountAmount(rentalDayCount, formattedCheckoutDate, discountPercentage));
+            finalCharge = usdFormat.format(selectedTool.finalCharge(rentalDayCount, formattedCheckoutDate, discountPercentage));
+            chargeableDays = String.valueOf(selectedTool.calculateChargeableDays(rentalDayCount, formattedCheckoutDate));
         } catch (IllegalArgumentException e) {
             String error = "Error processing Rental Agreement: \n" + e.getMessage();
             System.out.println(error);
