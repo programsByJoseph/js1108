@@ -50,10 +50,6 @@ public class Jackhammer extends Tool {
             throw new RuntimeException("Invalid date format");
         }
 
-        // Exclude the checkout day based on interpretation of requirement description:
-        // "Charge days - Count of chargeable days, from day after checkout through and including due date..."
-        // Therefore, we subtract 1 from the total chargeable days calculated to not include the day of checkout
-        // because "from day after checkout..."
         return chargeableDays;
     }
 }
