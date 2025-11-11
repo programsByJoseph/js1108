@@ -36,3 +36,12 @@ Below are steps to be able to do this:
 5) You can change the parameters in the curl command to whatever you want to test.
 
 
+Notes:
+This application runs with Java, Maven, and Spring Boot.
+
+Rental Agreement
+In this application, the rental agreement is an object that is used to generate the rental agreement details based on the input provided by the user.  
+It contains a method to print the rental agreement to the command line in the format specified by the exercise requirements.
+This automatically is done when the application is run and the endpoint specified above is hit or the tests are run.  When the tests are run there will be output to make it easy for the viewer to see the results.  The tests being output are validation for the exercise requirements.
+
+
