@@ -1,6 +1,6 @@
 Steps for running validation:
 
-This application is a maven project which means you can run all tests by running the following:
+This application is a maven project which means you can build and run all tests by running the following:
 mvn clean package
 This will compile the code, run all tests and package the application.  There is special output to make it 
 easier to find the validation results.
@@ -20,18 +20,17 @@ Below are steps to be able to do this:
    Test 5: curl -X POST -H "Content-Type: application/json" -d "{\"toolCode\": \"JAKR\", \"rentalDayCount\": 9, \"discountPercentage\": 0, \"checkoutDate\": \"7/2/15\"}" http://localhost:8080/api/rent
    Test 6: curl -X POST -H "Content-Type: application/json" -d "{\"toolCode\": \"JAKR\", \"rentalDayCount\": 4, \"discountPercentage\": 50, \"checkoutDate\": \"7/2/20\"}" http://localhost:8080/api/rent
 4) You should see a response like the following:
-{
-    "toolCode": "JAKR",
-    "toolType": "Jackhammer",
-    "brand": "Ridgid",
-    "rentalDays": 6,
-    "checkoutDate": "09/03/15",
-    "dueDate": "09/09/15",
-    "dailyRentalCharge": 2.99,
-    "chargeDays": 3,
-    "preDiscountCharge": 8.97,
-    "discountPercent": 0,
-    "discountAmount": 0.00,
-    "finalCharge": 8.97
-}
+   Rental Agreement:
+   Tool Code: JAKR
+   Tool Type: Jackhammer
+   Tool Brand: Ridgid
+   Rental Days: 4
+   Checkout Date: 07/02/20
+   Due Date: 07/06/20
+   Daily Rental Charge: $2.99
+   Charge Days: 1
+   Pre Discount Charge: $2.99
+   Discount Percentage: 50%
+   Discount Amount: $1.50
+   Final Charge: $1.49
 5) You can change the parameters in the curl command to whatever you want to test.
