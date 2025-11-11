@@ -18,6 +18,13 @@ class DateUtilTest {
     }
 
     @Test
+    void formatCheckoutDate_validDateDash() {
+        String inputDate = "5-5-25";
+        String formattedDate = this.dateUtil.formatCheckoutDate(inputDate);
+        assertEquals("05/05/25", formattedDate);
+    }
+
+    @Test
     void formatCheckoutDate_invalidDate() {
         String inputDate = "/5/5/25";
         assertThrows(RuntimeException.class, () -> {
