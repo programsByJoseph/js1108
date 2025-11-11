@@ -25,8 +25,10 @@ class ToolRentalControllerTest {
     @MockBean
     private InMemoryToolRepository repository;
 
-    // This is simply a test that when the endpoint is called, it interacts with the service layer as expected.
-    // The actual logic of creating a test rental agreement is tested in the ToolServiceTest.
+    // These tests are to simply validate that the controller is correctly receiving requests and returning responses
+    // as well as handling missing or malformed request bodies.
+    // The actual logic of creating a test rental agreement is tested in the ToolServiceTest so the service layer response
+    // is mocked.
     @Test
     void createRental() throws Exception {
         String expectedAgreement = "Rental Agreement";
