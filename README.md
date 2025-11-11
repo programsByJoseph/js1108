@@ -6,7 +6,7 @@ This will compile the code, run all tests and package the application.  There is
 easier to find the validation results.
 If you would like to provide whatever input you want to this application, you can do this by simply hitting this following
 endpoint:
-api/rent/{toolCode}/{rentalDayCount}/{discountPercentage}/{checkoutDate}
+http://localhost:8080/api/rent
 Below are steps to be able to do this:
 1) build and package the application using maven:
    mvn clean package

@@ -438,3 +438,35 @@ This command assumes your Spring Boot server is running on localhost:8080. Adjus
 
 ---
 
+## Entry: 2025-11-10 (ToolRentalControllerTest rental agreement test)
+
+- User: Add a test to test the endpoint returns a rental agreement when provided with the proper request body
+
+- Assistant: I added a test to ToolRentalControllerTest that uses MockMvc to verify the /api/rent endpoint returns a rental agreement when provided with the correct request body. Static error checks show only deprecation warnings for MockBean and unused field warnings, which do not affect test functionality. All future interactions will continue to be appended to AI_INTERACTION_LOG.md without removing any of its contents.
+
+---
+
+## Entry: 2025-11-10 (ToolRentalControllerTest context load error)
+
+- User: WHy am I getting the following error when I try to run the controller test: java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@78307a56 testClass = com.josephsPrograms.tool_rental.controller.ToolRentalControllerTest
+
+- Assistant: The error was caused because ToolRentalController requires both ToolService and InMemoryToolRepository beans. In your test, only ToolService was mocked, so the context failed to load. Adding @MockBean for InMemoryToolRepository resolves this issue. Your test now loads the context successfully. Note: There are deprecation warnings for MockBean (Spring Boot 3.4+), but these do not prevent the test from running. If you upgrade Spring Boot, you may need to use an alternative mocking approach. Your issue is resolved. All future interactions will continue to be appended to AI_INTERACTION_LOG.md.
+
+---
+
+## Entry: 2025-11-10 (ToolRentalController HttpMessageNotReadableException handler)
+
+- User: Add HttpMessageNotReadableException to this endpoint
+
+- Assistant: I added an @ExceptionHandler for HttpMessageNotReadableException to ToolRentalController, returning a 400 Bad Request with a user-friendly error message if the request body is missing or invalid. Static error checks show only unused field/method/parameter warnings, which do not affect functionality. All future interactions will continue to be appended to AI_INTERACTION_LOG.md without changing any of its contents before appending.
+
+---
+
+## Entry: 2025-11-10 (ToolRentalController handleHttpMessageNotReadable in createRental)
+
+- User: Implement hanldeHttpMessageNotReadable in createRental so I can catch the exception and return the response I want
+
+- Assistant: I updated createRental in ToolRentalController to catch HttpMessageNotReadableException and call handleHttpMessageNotReadable, allowing you to return a custom response when the request body is missing or invalid. Static error checks show only unused import/field/parameter warnings and a redundant default parameter value assignment, which do not affect functionality. All future interactions will continue to be appended to AI_INTERACTION_LOG.md without changing any of its contents before appending.
+
+---
+

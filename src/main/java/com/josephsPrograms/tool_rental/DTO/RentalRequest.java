@@ -1,6 +1,7 @@
 package com.josephsPrograms.tool_rental.DTO;
 
 public class RentalRequest {
+
     private String toolCode;
     private int rentalDayCount;
     private int discountPercentage;
